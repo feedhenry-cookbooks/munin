@@ -41,7 +41,7 @@ end
 
 munin_server_ips << '127.0.0.1' unless munin_server_ips.include?('127.0.0.1')
 
-package 'munin-node'
+package node['munin']['client']['package_name']
 
 template "#{node['munin']['basedir']}/munin-node.conf" do
   source 'munin-node.conf.erb'
