@@ -57,23 +57,19 @@ else
   sysadmins = search(:users, 'groups:sysadmin')
 end
 
-if Chef::Config[:solo]
-  munin_servers = [node]
-else
-  munin_servers = []
-  if node['munin']['multi_environment_monitoring']
-    if node['munin']['multi_environment_monitoring'].kind_of?(Array)
-      node['munin']['multi_environment_monitoring'].each do |searchenv|
-        search(:node, "munin:[* TO *] AND chef_environment:#{searchenv}").each do |n|
-          munin_servers << n
-        end
+munin_servers = []
+if node['munin']['multi_environment_monitoring']
+  if node['munin']['multi_environment_monitoring'].kind_of?(Array)
+    node['munin']['multi_environment_monitoring'].each do |searchenv|
+      search(:node, "munin:[* TO *] AND chef_environment:#{searchenv}").each do |n|
+        munin_servers << n
       end
-    else
-      munin_servers = search(:node, 'munin:[* TO *]')
     end
   else
-    munin_servers = search(:node, "munin:[* TO *] AND chef_environment:#{node.chef_environment}")
+    munin_servers = search(:node, 'munin:[* TO *]')
   end
+else
+  munin_servers = search(:node, "munin:[* TO *] AND chef_environment:#{node.chef_environment}")
 end
 
 if munin_servers.empty?

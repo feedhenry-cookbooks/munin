@@ -58,7 +58,15 @@ when 'arch', 'smartos'
   end
 end
 
-service service_name do
-  supports :restart => true
-  action [:start, :enable]
+
+unless platform_family?('mac_os_x')
+  service service_name do
+    supports :restart => true, :start => true, :enable => true
+    action [:start, :enable]
+  end
+else
+  service service_name do
+    supports :restart => true
+    action [:restart]
+  end
 end

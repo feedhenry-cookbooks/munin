@@ -27,12 +27,21 @@ define :munin_plugin, :create_file => false, :enable => true, :cookbook => 'muni
   service_name = params[:service_name] ? params[:service_name] : node['munin']['service_name']
 
   if params[:create_file]
-    cookbook_file "#{plugin_dir}/#{params[:name]}" do
-      cookbook params[:cookbook]
-      source   "plugins/#{params[:name]}"
-      owner    'root'
-      group    node['munin']['root']['group']
-      mode     '0755'
+    unless platform_family?('mac_os_x')
+      cookbook_file "#{plugin_dir}/#{params[:name]}" do
+        cookbook params[:cookbook]
+        source   "plugins/#{params[:name]}"
+        owner    'root'
+        group    node['munin']['root']['group']
+        mode     '0755'
+      end
+    else
+      cookbook_file "#{plugin_dir}/#{params[:name]}" do
+        cookbook params[:cookbook]
+        source   "plugins/#{params[:name]}"
+        owner    'root'
+        mode     '0755'
+      end
     end
   end
 

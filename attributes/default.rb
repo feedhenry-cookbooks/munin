@@ -72,8 +72,8 @@ else
   default['munin']['node']['log_dir'] = '/var/log/munin'
 end
 
-default['munin']['plugins'] = "#{default['munin']['basedir']}/plugins"
-default['munin']['tmpldir'] = "#{default['munin']['basedir']}/templates"
+default['munin']['plugins'] = "#{node['munin']['basedir']}/plugins"
+default['munin']['tmpldir'] = "#{node['munin']['basedir']}/templates"
 default['munin']['max_graph_jobs'] = '6'
 default['munin']['max_cgi_graph_jobs'] = '6'
 default['munin']['max_processes'] = nil # use as many as necessary
