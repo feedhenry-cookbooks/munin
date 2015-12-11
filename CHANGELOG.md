@@ -2,6 +2,11 @@ munin Cookbook CHANGELOG
 ========================
 This file is used to list changes made in each version of the munin cookbook.
 
+v1.4.4
+------
+- Uniquely identify servers by hostname instead of fqdn to stay compatible with mac servers
+
+
 v1.4.3
 ------
 - Added server_list attribute to contain a list of IP addresses of Munin servers (thanks [docwhat](https://github.com/docwhat))

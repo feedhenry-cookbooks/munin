@@ -77,7 +77,7 @@ if munin_servers.empty?
   munin_servers = [node]
 end
 
-munin_servers.sort! { |a, b| a['fqdn'] <=> b['fqdn'] }
+munin_servers.sort! { |a, b| a['hostname'] <=> b['hostname'] }
 
 case node['platform']
 when 'freebsd'
